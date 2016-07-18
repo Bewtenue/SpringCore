@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 3.0//EN" "http://www.springframework.org/dtd/spring-beans-3.0.dtd">
+
+<beans>
+
+	<!-- <bean id="point1" class="com.softpath.beans.Point">
+		<property name="x" value="50"></property>
+		<property name="y" value="20"></property>
+	</bean> -->
+
+	<!-- <bean id="point2" class="com.softpath.beans.Point">
+		<property name="x" value="12"></property>
+		<property name="y" value="34"></property>
+	</bean> -->
+
+	<!-- <bean id="mypoint" class="com.softpath.beans.PointsInjection"> <property 
+		name="pointA" ref="point1"></property> <property name="pointB"> <bean class="com.softpath.beans.Point"> 
+		<property name="x" value="12"></property> <property name="y" value="34"></property> 
+		</bean> </property> </bean> -->
+
+	
+	<!-- <alias name="mypoint" alias="mypoint-alias"></alias> -->
+
+
+	<bean id="pointA" class="com.softpath.beans.Point">
+		<property name="x" value="50"></property>
+		<property name="y" value="20"></property>
+	</bean>
+
+	<bean id="pointB" class="com.softpath.beans.Point">
+		<property name="x" value="12"></property>
+		<property name="y" value="34"></property>
+	</bean> 
+		<!-- autowire="byName" -->
+	<bean id="mypoint" class="com.softpath.beans.PointsInjection"  autowire="byType">
+	</bean>
+
+
+</beans>

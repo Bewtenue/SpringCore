@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans  xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+	
+	
+	<context:annotation-config></context:annotation-config>
+	
+	<bean id="sandia1" class="com.softpath.beans.Sandia">
+		<property name="tipo" value="Reina de corazones"></property>
+		<property name="peso" value="2"></property>	
+	</bean>
+	
+	<bean id="sandia2" class="com.softpath.beans.Sandia">
+		<property name="tipo" value="${sandia.tipo}"></property>
+		<property name="peso" value="${sandia.peso}"></property>
+	</bean>
+	
+	<bean id="sandia" class="com.softpath.beans.Sandia">
+		<property name="tipo" value="Asahi Myako"></property>
+		<property name="peso" value="4"></property>
+	</bean>
+	
+	<bean id="manzana" class="com.softpath.beans.Manzana">
+		<property name="tipo" value="${manzana.tipo}"></property>
+		<property name="peso" value="${manzana.peso}"></property>
+	</bean>
+	
+	<bean id="pera" class="com.softpath.beans.Pera">
+		<property name="tipo" value="${pera.tipo}"></property>
+		<property name="peso" value="${pera.peso}"></property>
+	</bean>
+	
+	<bean id="abstract_market" class="com.softpath.beans.Market" abstract="true" autowire="byName">
+		<property name="listaSandia">
+			<list>
+				<ref bean="sandia1"></ref>
+			</list>
+		</property>
+		<property name="sandia" ref="sandia"></property>	
+	</bean>
+
+	<bean id="market_child" class="com.softpath.beans.Market" parent="abstract_market" autowire="byName">
+		<property name="listaSandia">
+			<list merge="true">
+			<ref bean = "sandia2"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations" value="mercado.properties"></property>
+	</bean>
+
+</beans>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 3.0//EN" "http://www.springframework.org/dtd/spring-beans-3.0.dtd">
+
+<beans>
+
+	<bean id="point1" class="com.softpath.beans.Point">
+		<property name="x" value="${point.pointX}"></property><!-- para setear de un archivo de properties -->
+		<property name="y" value="${point.pointY}"></property>
+	</bean>
+
+	<bean id="point2" class="com.softpath.beans.Point">
+		<property name="x" value="29"></property>
+		<property name="y" value="67"></property>
+	</bean>
+
+	<bean id="point3" class="com.softpath.beans.Point">
+		<property name="x" value="19"></property>
+		<property name="y" value="56"></property>
+	</bean>
+
+	<bean id="mypoint" class="com.softpath.beans.PointsInjection" abstract="true">
+		<property name="pointA" ref="point1"></property>
+		<property name="pointList">
+			<list>
+				<ref bean="point2"></ref>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="childpoint" class="com.softpath.beans.PointsInjection" parent="mypoint" destroy-method="destroy">
+		<property name="pointB" ref="point3"></property>
+		<property name="pointList">
+			<list merge="true">
+			<ref bean = "point3"></ref>
+			</list>
+		</property>
+		
+	</bean>
+
+	<bean class="com.softpath.beans.MyBeanFactoryPostProcessor"></bean>
+	
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+	<property name="locations" value="pointsNames.properties"></property>
+	</bean>
+	
+	
+</beans>
